@@ -74,7 +74,8 @@ section { padding-block: 72px 8px; scroll-margin-top: 60px; }
 .btn { display: inline-flex; align-items: center; gap: 8px; font: 600 15px var(--font-body); text-decoration: none; padding: 11px 18px; border-radius: 8px; border: 1px solid var(--line); color: var(--ink); background: var(--panel); }
 .btn:hover { border-color: var(--accent); }
 .btn.primary { background: var(--ink); color: var(--bg); border-color: var(--ink); }
-.mail { font: 15px var(--font-mono); color: var(--muted); user-select: all; }
+.mail { font: 15px var(--font-mono); color: var(--muted); text-decoration: none; }
+.mail:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
 
 /* featured */
 .featured { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 36px; align-items: start; }
@@ -138,6 +139,47 @@ section { padding-block: 72px 8px; scroll-margin-top: 60px; }
 .contact { padding-block: 72px 40px; }
 .contact p { color: var(--muted); max-width: 56ch; }
 footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; padding-block: 22px 40px; margin-top: 30px; }
+
+/* ---------- motion ---------- */
+.hero { position: relative; isolation: isolate; }
+#fabric { position: absolute; top: 96px; right: 0; width: 440px; height: 420px; z-index: -1; pointer-events: none; }
+@media (min-width: 980px) { .hero > :not(#fabric) { max-width: 600px; } }
+@media (max-width: 979px) { #fabric { width: 100%; height: 360px; top: 20px; opacity: .28; } }
+.hero > * { animation: rise .8s cubic-bezier(.2,.7,.2,1) both; }
+.hero > :nth-child(2) { animation-delay: .08s; } .hero > :nth-child(3) { animation-delay: .16s; }
+.hero > :nth-child(4) { animation-delay: .24s; } .hero > :nth-child(5) { animation-delay: .32s; }
+.hero > :nth-child(6) { animation-delay: .40s; } .hero > :nth-child(7) { animation-delay: .48s; }
+.hero > #fabric { animation: fade 1.6s ease both .2s; }
+@keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+@keyframes fade { from { opacity: 0; } }
+.spectrum span { transform-origin: left; animation: grow .7s cubic-bezier(.2,.7,.2,1) both; }
+.spectrum span:nth-child(1) { animation-delay: .55s; } .spectrum span:nth-child(2) { animation-delay: .62s; }
+.spectrum span:nth-child(3) { animation-delay: .69s; } .spectrum span:nth-child(4) { animation-delay: .76s; }
+.spectrum span:nth-child(5) { animation-delay: .83s; } .spectrum span:nth-child(6) { animation-delay: .90s; }
+@keyframes grow { from { transform: scaleX(0); } }
+/* pipeline steps light up in order, then repeat */
+.pipeline b { animation: step 8.4s infinite; }
+.pipeline b:nth-of-type(2) { animation-delay: 1.2s; } .pipeline b:nth-of-type(3) { animation-delay: 2.4s; }
+.pipeline b:nth-of-type(4) { animation-delay: 3.6s; } .pipeline b:nth-of-type(5) { animation-delay: 4.8s; }
+.pipeline b:nth-of-type(6) { animation-delay: 6s; } .pipeline b:nth-of-type(7) { animation-delay: 7.2s; }
+@keyframes step { 0%, 14% { color: var(--bg); background: var(--c-fabric); border-radius: 4px; box-shadow: 0 0 0 3px var(--c-fabric); } 18%, 100% { color: var(--c-fabric); background: transparent; box-shadow: none; } }
+/* cards */
+.card { transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease; }
+.card:hover { transform: translateY(-4px); border-color: #2c3546; box-shadow: 0 18px 40px -18px #000; }
+.card > a.shot { overflow: hidden; }
+.card > a.shot img { transition: transform .5s cubic-bezier(.2,.7,.2,1); }
+.card:hover > a.shot img { transform: scale(1.03); }
+.btn { transition: border-color .2s, transform .2s; } .btn:hover { transform: translateY(-1px); }
+/* scroll reveal: only when JS has run, so content is visible without it */
+.js .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1); }
+.js .reveal.in { opacity: 1; transform: none; }
+.job.in::before { animation: ping 1.2s ease-out 1; }
+@keyframes ping { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 70%, transparent); } 100% { box-shadow: 0 0 0 12px transparent; } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .js .reveal { opacity: 1; transform: none; }
+  #fabric { display: none; }
+}
 </style>
 </head>
 <body>
@@ -155,6 +197,7 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; 
 
 <main class="wrap" id="top">
   <header class="hero">
+    <canvas id="fabric" aria-hidden="true"></canvas>
     <div class="eyebrow">Network Engineer · Boston, MA</div>
     <h1>Jeevanandh Ravi</h1>
     <p class="pitch">I build and troubleshoot networks, and automate changes so they go out safely.</p>
@@ -169,7 +212,8 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; 
       <a class="btn primary" href="#work">See my work</a>
       <a class="btn" href="https://github.com/Jeevanandh32" target="_blank" rel="noopener">GitHub</a>
       <a class="btn" href="https://www.linkedin.com/in/jeevanandhravi/" target="_blank" rel="noopener">LinkedIn</a>
-      <span class="mail">jeevanandhravi@gmail.com</span>
+      <a class="btn" href="mailto:jeevanandhravi@gmail.com">Email me</a>
+      <a class="mail" href="mailto:jeevanandhravi@gmail.com">jeevanandhravi@gmail.com</a>
     </div>
   </header>
 
@@ -329,7 +373,8 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; 
     <h2>Let's talk</h2>
     <p>I'm looking for network engineer, network automation, cloud network and infrastructure engineer roles. The quickest way to reach me is email or LinkedIn.</p>
     <div class="actions">
-      <span class="mail">jeevanandhravi@gmail.com</span>
+      <a class="btn" href="mailto:jeevanandhravi@gmail.com">Email me</a>
+      <a class="mail" href="mailto:jeevanandhravi@gmail.com">jeevanandhravi@gmail.com</a>
       <a class="btn" href="https://www.linkedin.com/in/jeevanandhravi/" target="_blank" rel="noopener">LinkedIn</a>
       <a class="btn" href="https://github.com/Jeevanandh32" target="_blank" rel="noopener">GitHub</a>
     </div>
@@ -337,5 +382,86 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; 
 
   <footer>© 2026 Jeevanandh Ravi · Boston, MA</footer>
 </main>
+<script>
+(() => {
+  document.documentElement.classList.add('js');
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Scroll reveal for cards, jobs, skills and credentials
+  const items = document.querySelectorAll('.card, .job, .skill, .cred, .featured > *');
+  items.forEach(el => el.classList.add('reveal'));
+  if (still || !('IntersectionObserver' in window)) { items.forEach(el => el.classList.add('in')); }
+  else {
+    const io = new IntersectionObserver(es => es.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    }), { rootMargin: '0px 0px -8% 0px' });
+    items.forEach((el, i) => { el.style.transitionDelay = (i % 2) * 90 + 'ms'; io.observe(el); });
+  }
+
+  // Hero: an analog signal turns into digital packets (electronics -> networks)
+  const cv = document.getElementById('fabric');
+  if (!cv || still) return;
+  const ctx = cv.getContext('2d');
+  const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  const colors = ['--c-fabric', '--c-probe', '--c-ha', '--c-mpls', '--c-linux', '--c-aws'].map(css);
+  const ink = css('--muted'), accent = css('--accent');
+  let W, H, mid, cy, t = 0, raf, bits = [], lastBit = 0;
+  function layout() {
+    const r = cv.getBoundingClientRect(), dpr = Math.min(devicePixelRatio || 1, 2);
+    W = r.width; H = r.height; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    mid = W * 0.46; cy = H * 0.5;
+  }
+  function draw() {
+    t += 1 / 60;
+    ctx.clearRect(0, 0, W, H);
+    // analog side: two phase-shifted, amplitude-modulated sine waves
+    for (let k = 0; k < 2; k++) {
+      ctx.beginPath();
+      for (let x = 0; x <= mid; x += 2) {
+        const env = Math.sin(Math.PI * x / mid);                     // fades in, squeezes into the node
+        const y = cy + Math.sin(x * 0.045 - t * 3.2 + k * 1.6) * (H * 0.2) * env * (0.75 + 0.25 * Math.sin(t * 0.9 + k));
+        x ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+      }
+      const g = ctx.createLinearGradient(0, 0, mid, 0);
+      g.addColorStop(0, 'rgba(142,200,255,0)'); g.addColorStop(1, k ? colors[2] : accent);
+      ctx.strokeStyle = g; ctx.lineWidth = k ? 1.4 : 2.4; ctx.globalAlpha = k ? 0.55 : 1; ctx.stroke(); ctx.globalAlpha = 1;
+    }
+    // node where the signal is encoded
+    const pulse = 1 + 0.08 * Math.sin(t * 4);
+    ctx.shadowBlur = 26; ctx.shadowColor = accent; ctx.fillStyle = '#0a0d14'; ctx.strokeStyle = accent; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.arc(mid, cy, 15 * pulse, 0, 7); ctx.fill(); ctx.stroke(); ctx.shadowBlur = 0;
+    ctx.fillStyle = accent; ctx.beginPath(); ctx.arc(mid, cy, 4, 0, 7); ctx.fill();
+    // digital side: a square-wave bit stream plus packets moving out on three lanes
+    if (t - lastBit > 0.14) { lastBit = t; bits.push({ x: mid + 18, b: Math.random() < 0.5 ? 1 : 0, lane: Math.floor(Math.random() * 3), c: colors[Math.floor(Math.random() * 6)], pkt: Math.random() < 0.35 }); }
+    ctx.beginPath(); ctx.strokeStyle = 'rgba(142,160,190,.55)'; ctx.lineWidth = 1.6;
+    const step = bits.length ? bits : [];
+    let px = mid + 18, py = cy;
+    ctx.moveTo(px, py);
+    for (let i = step.length - 1; i >= 0; i--) {
+      const bt = step[i], y = cy + (bt.b ? -14 : 14);
+      ctx.lineTo(bt.x, py); ctx.lineTo(bt.x, y); py = y;
+    }
+    ctx.stroke();
+    const lanes = [cy - H * 0.27, cy, cy + H * 0.27];
+    bits.forEach(bt => {
+      bt.x += 2.1;
+      if (bt.pkt) {
+        const ly = cy + (lanes[bt.lane] - cy) * Math.min(1, (bt.x - mid) / (W * 0.18));
+        const a = Math.min(1, (bt.x - mid) / 60) * Math.max(0, Math.min(1, (W - bt.x) / 80));
+        ctx.globalAlpha = a; ctx.fillStyle = bt.c; ctx.shadowBlur = 12; ctx.shadowColor = bt.c;
+        ctx.beginPath(); ctx.roundRect(bt.x - 9, ly - 5, 18, 10, 3); ctx.fill(); ctx.shadowBlur = 0; ctx.globalAlpha = 1;
+      }
+    });
+    bits = bits.filter(bt => bt.x < W + 20);
+    // labels
+    ctx.font = '500 11px "IBM Plex Mono", monospace'; ctx.fillStyle = ink; ctx.textAlign = 'center'; ctx.globalAlpha = .8;
+    ctx.fillText('SIGNAL', mid * 0.5, H - 22); ctx.fillText('PACKETS', mid + (W - mid) * 0.55, H - 22); ctx.globalAlpha = 1;
+    raf = requestAnimationFrame(draw);
+  }
+  layout(); addEventListener('resize', layout);
+  document.addEventListener('visibilitychange', () => { cancelAnimationFrame(raf); if (!document.hidden) draw(); });
+  draw();
+})();
+</script>
 </body>
 </html>
