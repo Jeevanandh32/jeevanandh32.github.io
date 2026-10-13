@@ -144,7 +144,7 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; 
 .hero { position: relative; isolation: isolate; }
 #fabric { position: absolute; top: 96px; right: 0; width: 440px; height: 420px; z-index: -1; pointer-events: none; }
 @media (min-width: 980px) { .hero > :not(#fabric) { max-width: 600px; } }
-@media (max-width: 979px) { #fabric { width: 100%; height: 360px; top: 20px; opacity: .28; } }
+@media (max-width: 979px) { .hero { display: flex; flex-direction: column; } #fabric { position: static; order: 99; width: 100%; max-width: 480px; height: 400px; margin-top: 36px; z-index: 0; } }
 .hero > * { animation: rise .8s cubic-bezier(.2,.7,.2,1) both; }
 .hero > :nth-child(2) { animation-delay: .08s; } .hero > :nth-child(3) { animation-delay: .16s; }
 .hero > :nth-child(4) { animation-delay: .24s; } .hero > :nth-child(5) { animation-delay: .32s; }
@@ -175,10 +175,18 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; 
 .js .reveal.in { opacity: 1; transform: none; }
 .job.in::before { animation: ping 1.2s ease-out 1; }
 @keyframes ping { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 70%, transparent); } 100% { box-shadow: 0 0 0 12px transparent; } }
+
+.job.with-viz { display: grid; grid-template-columns: minmax(0, 1fr) 300px; column-gap: 36px; align-items: start; }
+.job.with-viz > :not(#ring):not(.viz) { grid-column: 1; }
+#ring { grid-column: 2; grid-row: 1 / span 4; width: 300px; height: 300px; margin-top: 64px; }
+.viz { grid-column: 2; grid-row: 1 / span 4; width: 300px; margin-top: 32px; }
+#term { height: 210px; } #oled { height: 196px; }
+@media (max-width: 860px) { .viz { grid-column: 1; grid-row: auto; order: 9; margin-top: 18px; width: 100%; max-width: 320px; } }
+@media (max-width: 860px) { .job.with-viz { grid-template-columns: minmax(0, 1fr); } #ring { grid-column: 1; grid-row: auto; order: 9; margin-top: 18px; width: 100%; max-width: 320px; height: 320px; } .job.with-viz { display: flex; flex-direction: column; } }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .js .reveal { opacity: 1; transform: none; }
-  #fabric { display: none; }
+  #fabric, #ring, .viz { display: none; }
 }
 </style>
 </head>
@@ -212,8 +220,7 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; 
       <a class="btn primary" href="#work">See my work</a>
       <a class="btn" href="https://github.com/Jeevanandh32" target="_blank" rel="noopener">GitHub</a>
       <a class="btn" href="https://www.linkedin.com/in/jeevanandhravi/" target="_blank" rel="noopener">LinkedIn</a>
-      <a class="btn" href="mailto:jeevanandhravi@gmail.com">Email me</a>
-      <a class="mail" href="mailto:jeevanandhravi@gmail.com">jeevanandhravi@gmail.com</a>
+      <a class="btn" href="mailto:jeevanandhravi@gmail.com">✉ jeevanandhravi@gmail.com</a>
     </div>
   </header>
 
@@ -310,7 +317,8 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; 
     <div class="eyebrow">Experience</div>
     <h2>Where I've worked</h2>
     <div class="jobs">
-      <div class="job">
+      <div class="job with-viz">
+        <canvas id="term" class="viz" role="img" aria-label="Terminal running Linux networking lab commands"></canvas>
         <div class="when">Sep 2026 – Present</div>
         <h3>Graduate Teaching Assistant, Linux for Network Engineers</h3>
         <div class="org">Northeastern University · Boston, MA</div>
@@ -319,7 +327,8 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; 
           <li>Write technical guides, code samples and lab summaries; troubleshoot student VM setups on Windows and macOS</li>
         </ul>
       </div>
-      <div class="job">
+      <div class="job with-viz">
+        <canvas id="ring" aria-label="300+ incidents resolved, 88% same-day" role="img"></canvas>
         <div class="when">Jan 2026 – Jun 2026</div>
         <h3>Network Engineer (Co-op)</h3>
         <div class="org">Global Partners · Waltham, MA</div>
@@ -331,7 +340,8 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; 
           <li>Configured RPDU/UPS remote management and fusion-spliced optical fiber in a company-owned data center</li>
         </ul>
       </div>
-      <div class="job">
+      <div class="job with-viz">
+        <canvas id="oled" class="viz" role="img" aria-label="128 by 64 OLED screen showing a charging case battery filling up"></canvas>
         <div class="when">Jan 2024 – May 2024</div>
         <h3>Research &amp; Development Intern</h3>
         <div class="org">boAt (Imagine Marketing) · Bangalore, India</div>
@@ -373,8 +383,7 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; 
     <h2>Let's talk</h2>
     <p>I'm looking for network engineer, network automation, cloud network and infrastructure engineer roles. The quickest way to reach me is email or LinkedIn.</p>
     <div class="actions">
-      <a class="btn" href="mailto:jeevanandhravi@gmail.com">Email me</a>
-      <a class="mail" href="mailto:jeevanandhravi@gmail.com">jeevanandhravi@gmail.com</a>
+      <a class="btn" href="mailto:jeevanandhravi@gmail.com">✉ jeevanandhravi@gmail.com</a>
       <a class="btn" href="https://www.linkedin.com/in/jeevanandhravi/" target="_blank" rel="noopener">LinkedIn</a>
       <a class="btn" href="https://github.com/Jeevanandh32" target="_blank" rel="noopener">GitHub</a>
     </div>
@@ -461,6 +470,156 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; 
   layout(); addEventListener('resize', layout);
   document.addEventListener('visibilitychange', () => { cancelAnimationFrame(raf); if (!document.hidden) draw(); });
   draw();
+})();
+</script>
+<script>
+(() => {
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const cv = document.getElementById('ring');
+  if (!cv || still) return;
+  const ctx = cv.getContext('2d');
+  const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  const OK = '#4ccf72', BAD = '#ff6b6b', WARN = '#f5a142';
+  const ink = css('--ink'), muted = css('--muted'), dim = css('--dim'), line = css('--line'), accent = css('--accent');
+  let W, H, raf, t = 0;
+  function layout() {
+    const r = cv.getBoundingClientRect(), dpr = Math.min(devicePixelRatio || 1, 2);
+    W = r.width; H = r.height; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    if (typeof onLayout === 'function') onLayout();
+  }
+  function panel() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = 'rgba(14,17,24,.86)'; ctx.strokeStyle = line; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.roundRect(0.5, 0.5, W - 1, H - 1, 14); ctx.fill(); ctx.stroke();
+  }
+  function mono(size, weight) { ctx.font = `${weight || 500} ${size}px "IBM Plex Mono", monospace`; }
+  function loop() { t += 1 / 60; frame(); raf = requestAnimationFrame(loop); }
+  function start() {
+    layout(); addEventListener('resize', layout);
+    document.addEventListener('visibilitychange', () => { cancelAnimationFrame(raf); if (!document.hidden) loop(); });
+    loop();
+  }
+  // Incident ring next to the co-op role. 300 ticks, one per incident resolved; each fault flashes red, then turns green.
+  let onLayout = null, solved = 0, cur = null, flashes = [], holdUntil = 0;
+  const TOTAL = 300, FAULTS = ['VLAN mismatch', 'Port-security violation', 'DHCP addressing error', 'DMVPN tunnel down', 'Carrier circuit outage', 'Meraki AP offline'];
+  function frame() {
+    panel();
+    const cx = W / 2, cy = H * 0.47, R = Math.min(W, H) * 0.36;
+    if (!cur && solved < TOTAL) cur = { i: solved, t: 0, f: FAULTS[solved % FAULTS.length] };
+    if (cur) { cur.t += 1 / 60; const dur = solved < 12 ? 0.55 : 0.06; if (cur.t > dur) { solved++; flashes.push({ i: cur.i, a: 1 }); cur = null; } }
+    if (solved >= TOTAL && !holdUntil) holdUntil = t + 4;
+    if (holdUntil && t > holdUntil) { solved = 0; flashes = []; holdUntil = 0; }
+    for (let i = 0; i < TOTAL; i++) {
+      const ang = -Math.PI / 2 + i / TOTAL * Math.PI * 2;
+      const r1 = R - 12, r2 = R + (i % 10 === 0 ? 10 : 4);
+      ctx.strokeStyle = i < solved ? OK : (cur && cur.i === i ? BAD : 'rgba(142,160,190,.14)');
+      ctx.globalAlpha = i < solved ? 0.8 : 1; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(cx + Math.cos(ang) * r1, cy + Math.sin(ang) * r1); ctx.lineTo(cx + Math.cos(ang) * r2, cy + Math.sin(ang) * r2); ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+    flashes.forEach(f => {
+      const ang = -Math.PI / 2 + f.i / TOTAL * Math.PI * 2;
+      ctx.fillStyle = OK; ctx.globalAlpha = f.a; ctx.shadowBlur = 14; ctx.shadowColor = OK;
+      ctx.beginPath(); ctx.arc(cx + Math.cos(ang) * (R + 16), cy + Math.sin(ang) * (R + 16), 3, 0, 7); ctx.fill(); ctx.shadowBlur = 0; f.a -= 0.03;
+    });
+    ctx.globalAlpha = 1; flashes = flashes.filter(f => f.a > 0);
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillStyle = ink; ctx.font = '700 64px "Archivo Narrow", sans-serif'; ctx.fillText(solved >= TOTAL ? '300+' : String(solved), cx, cy - 10);
+    mono(11); ctx.fillStyle = dim; ctx.fillText('INCIDENTS RESOLVED', cx, cy + 30);
+    ctx.fillStyle = OK; ctx.fillText('88% SAME-DAY', cx, cy + 50);
+    mono(12, 400); ctx.fillStyle = cur ? BAD : muted;
+    ctx.fillText(cur ? `● ${cur.f}` : (solved >= TOTAL ? '890+ retail sites · all online' : '● restored'), cx, H - 30);
+    mono(11); ctx.textAlign = 'left'; ctx.fillStyle = dim; ctx.fillText('NOC · TIER 1/2', 18, 26);
+  }
+  // start counting only when the ring scrolls into view
+  if ('IntersectionObserver' in window) {
+    const io2 = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { io2.disconnect(); start(); } }, { threshold: 0.4 });
+    io2.observe(cv);
+  } else start();
+})();
+</script>
+<script>
+(() => {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  const ink = css('--ink'), muted = css('--muted'), dim = css('--dim'), line = css('--line'), accent = css('--accent');
+  const OK = '#4ccf72';
+
+  // Small helper: a canvas that animates only while on screen
+  function viz(id, setup) {
+    const cv = document.getElementById(id); if (!cv) return;
+    const ctx = cv.getContext('2d'); let W, H, raf, t = 0, visible = false;
+    const size = () => { const r = cv.getBoundingClientRect(), d = Math.min(devicePixelRatio || 1, 2);
+      W = r.width; H = r.height; cv.width = W * d; cv.height = H * d; ctx.setTransform(d, 0, 0, d, 0, 0); };
+    const frame = setup(ctx);
+    const loop = () => { t += 1 / 60; ctx.clearRect(0, 0, W, H);
+      ctx.fillStyle = 'rgba(14,17,24,.86)'; ctx.strokeStyle = line; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.roundRect(0.5, 0.5, W - 1, H - 1, 14); ctx.fill(); ctx.stroke();
+      frame(W, H, t); raf = requestAnimationFrame(loop); };
+    size(); addEventListener('resize', size);
+    new IntersectionObserver(es => es.forEach(e => {
+      visible = e.isIntersecting; cancelAnimationFrame(raf); if (visible) loop();
+    }), { threshold: 0.2 }).observe(cv);
+  }
+  const mono = (ctx, px, w) => { ctx.font = `${w || 400} ${px}px "IBM Plex Mono", monospace`; };
+
+  // TA role: a terminal typing the commands taught in the Linux lab
+  viz('term', ctx => {
+    const SCRIPT = [
+      ['$ ip -br addr', ink], ['ens33  UP  192.168.56.10/24', muted],
+      ['$ ss -tulpn | grep :53', ink], ['udp  UNCONN  0.0.0.0:53  named', muted],
+      ['$ dig +short ns1.lab.local', ink], ['192.168.56.10', OK],
+      ['$ traceroute -n 192.168.56.20', ink], [' 1  192.168.56.20  0.41 ms', OK],
+    ];
+    let shown = [], i = 0, typed = 0, wait = 0;
+    return (W, H) => {
+      mono(ctx, 10.5, 500); ctx.textBaseline = 'middle'; ctx.textAlign = 'left';
+      ctx.fillStyle = dim; ctx.fillText('LAB · LINUX FOR NETWORK ENGINEERS', 16, 20);
+      ctx.strokeStyle = line; ctx.beginPath(); ctx.moveTo(0, 36); ctx.lineTo(W, 36); ctx.stroke();
+      if (wait > 0) wait -= 1 / 60;
+      else if (i < SCRIPT.length) {
+        const [txt] = SCRIPT[i];
+        typed += txt.startsWith('$') ? 0.6 : 3;
+        if (typed >= txt.length) { shown.push(SCRIPT[i]); i++; typed = 0; wait = SCRIPT[i - 1][0].startsWith('$') ? 0.25 : 0.7; }
+      } else { shown = []; i = 0; wait = 0.8; }
+      mono(ctx, 11.5); let y = 54;
+      const rows = shown.slice(-5);
+      rows.forEach(([txt, c]) => { ctx.fillStyle = c; ctx.fillText(txt, 16, y); y += 24; });
+      if (i < SCRIPT.length && wait <= 0) { const [txt, c] = SCRIPT[i]; ctx.fillStyle = c; ctx.fillText(txt.slice(0, Math.floor(typed)), 16, y); }
+      if (Math.floor(performance.now() / 500) % 2) { const cx = 16 + ctx.measureText(i < SCRIPT.length && wait <= 0 ? SCRIPT[i][0].slice(0, Math.floor(typed)) : '').width;
+        ctx.fillStyle = ink; ctx.fillRect(cx + 2, y - 7, 7, 13); }
+      mono(ctx, 10.5, 500); ctx.fillStyle = accent; ctx.fillText('20+ GRADUATE STUDENTS · UBUNTU · BASH', 16, H - 18);
+    };
+  });
+
+  // boAt internship: a 128x64 SSD1306 OLED, drawn pixel by pixel, showing the case charging
+  viz('oled', ctx => {
+    const fb = document.createElement('canvas'); fb.width = 128; fb.height = 64;
+    const f = fb.getContext('2d', { willReadFrequently: true });
+    let level = 0;
+    return (W, H, t) => {
+      level = (level + 0.18) % 112;
+      const pct = Math.min(100, Math.round(level));
+      // draw one frame into a 1-bit 128x64 buffer
+      f.fillStyle = '#000'; f.fillRect(0, 0, 128, 64); f.fillStyle = '#fff'; f.strokeStyle = '#fff';
+      f.font = '8px monospace'; f.textBaseline = 'top'; f.fillText('CASE', 4, 3); f.fillText('L R', 100, 3);
+      f.fillRect(4, 13, 120, 1);
+      f.lineWidth = 1; f.strokeRect(10.5, 22.5, 86, 26); f.fillRect(97, 30, 3, 11);
+      f.fillRect(13, 25, Math.max(0, 81 * pct / 100), 21);
+      if (pct < 100 && Math.floor(t * 2) % 2) { f.beginPath(); f.moveTo(108, 24); f.lineTo(103, 36); f.lineTo(108, 36); f.lineTo(105, 48); f.lineTo(114, 33); f.lineTo(109, 33); f.lineTo(112, 24); f.fill(); }
+      f.font = '10px monospace'; f.fillText(pct + '%', 50 - (pct + '%').length * 3, 52);
+      const img = f.getImageData(0, 0, 128, 64).data;
+      // render the buffer as lit pixels inside a screen bezel
+      const sw = W - 32, px = sw / 128, sh = px * 64, sx = 16, sy = 22;
+      ctx.fillStyle = '#020306'; ctx.beginPath(); ctx.roundRect(sx - 6, sy - 6, sw + 12, sh + 12, 6); ctx.fill();
+      ctx.fillStyle = '#9fd8ff'; ctx.shadowColor = '#5cb8f5'; ctx.shadowBlur = 6;
+      for (let y = 0; y < 64; y++) for (let x = 0; x < 128; x++)
+        if (img[(y * 128 + x) * 4] > 110) ctx.fillRect(sx + x * px, sy + y * px, px * 0.86, px * 0.86);
+      ctx.shadowBlur = 0;
+      mono(ctx, 10.5, 500); ctx.textAlign = 'left'; ctx.textBaseline = 'middle'; ctx.fillStyle = accent;
+      ctx.fillText('SSD1306 128×64 · I2C · TI MSPM0L1306', 16, H - 18);
+    };
+  });
 })();
 </script>
 </body>
