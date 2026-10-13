@@ -105,6 +105,7 @@ section { padding-block: 72px 8px; scroll-margin-top: 60px; }
 .card .tags { margin-top: auto; margin-bottom: 0; }
 .k-probe { color: var(--c-probe); } .k-ha { color: var(--c-ha); } .k-mpls { color: var(--c-mpls); }
 .k-linux { color: var(--c-linux); } .k-aws { color: var(--c-aws); }
+.card .src { font: 500 11px/1 var(--font-mono); letter-spacing: .08em; color: var(--muted); border: 1px solid var(--line); border-radius: 99px; padding: 4px 8px; margin-left: 8px; vertical-align: 1px; }
 
 /* experience */
 .jobs { display: grid; gap: 0; border-left: 1px solid var(--line); margin-left: 6px; }
@@ -202,12 +203,12 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; 
 
   <section>
     <div class="eyebrow">More projects</div>
-    <h2>Labs and tools</h2>
+    <h2>Self-driven and Academic projects</h2>
     <div class="grid">
       <article class="card">
         <a class="shot" href="https://github.com/Jeevanandh32/ProbePulse" target="_blank" rel="noopener"><img src="assets/probepulse.png" alt="ProbePulse: blackbox exporter probing web, api and db containers, with Grafana alerting" loading="lazy" width="1600" height="914"></a>
         <div class="body">
-          <div class="kind k-probe">Observability</div>
+          <div class="kind k-probe">Observability <span class="src">Self-driven</span></div>
           <h3><a href="https://github.com/Jeevanandh32/ProbePulse" target="_blank" rel="noopener">ProbePulse</a></h3>
           <p>Docker Compose lab that detects HTTP, connection and DNS failures. Prometheus Blackbox probes and Grafana alerts caught outages with a 36.95 s median; operator-approved recovery brought 5 of 5 back, 351 ms after approval.</p>
           <ul class="tags"><li>Docker Compose</li><li>Prometheus</li><li>Grafana</li><li>tcpdump</li><li>Bash</li></ul>
@@ -216,7 +217,7 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; 
       <article class="card">
         <a class="shot" href="https://github.com/Jeevanandh32/Multi-Location-Network-Design-and-Implementation-using-Cisco-Packet-Tracer" target="_blank" rel="noopener"><img src="assets/ha-multi-site.png" alt="Five OSPF site areas joined through the area 0 backbone" loading="lazy" width="1600" height="914"></a>
         <div class="body">
-          <div class="kind k-ha">Network design</div>
+          <div class="kind k-ha">Network design <span class="src">Academic</span></div>
           <h3><a href="https://github.com/Jeevanandh32/Multi-Location-Network-Design-and-Implementation-using-Cisco-Packet-Tracer" target="_blank" rel="noopener">High-Availability Multi-Site Network</a></h3>
           <p>Five-site enterprise WAN on Cisco IOS with 8 routers and 11 switches. Each site is its own OSPF area joined through area 0, with redundancy so losing a link, router or switch doesn't stop traffic.</p>
           <ul class="tags"><li>Multi-area OSPF</li><li>EIGRP</li><li>GRE over IPsec</li><li>HSRP</li><li>Rapid PVST+</li><li>LACP</li></ul>
@@ -225,7 +226,7 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; 
       <article class="card">
         <a class="shot" href="https://github.com/Jeevanandh32/Advanced-Network-Configuration-Troubleshooting" target="_blank" rel="noopener"><img src="assets/mpls-l3vpn.png" alt="Provider core AS 100 with PE and P routers carrying customer sites in AS 65001 and 65002" loading="lazy" width="1600" height="914"></a>
         <div class="body">
-          <div class="kind k-mpls">Service provider</div>
+          <div class="kind k-mpls">Service provider <span class="src">Academic</span></div>
           <h3><a href="https://github.com/Jeevanandh32/Advanced-Network-Configuration-Troubleshooting" target="_blank" rel="noopener">Multi-AS BGP &amp; MPLS L3VPN Lab</a></h3>
           <p>A provider core carrying customer VRFs between two customer ASes. Customer routes stay apart in VRFs and are label-switched across the core, then broken and fixed on purpose to practice troubleshooting.</p>
           <ul class="tags"><li>BGP</li><li>MPLS</li><li>LDP</li><li>OSPF</li><li>VRF</li><li>route-maps</li></ul>
@@ -234,7 +235,7 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; 
       <article class="card">
         <a class="shot" href="https://github.com/Jeevanandh32/Adhoc-Network-Infrastructure-using-Linux" target="_blank" rel="noopener"><img src="assets/linux-infrastructure.png" alt="Two physical hosts running VMware with BIND9 DNS, ISC DHCP and an IPsec tunnel" loading="lazy" width="1600" height="900"></a>
         <div class="body">
-          <div class="kind k-linux">Linux networking</div>
+          <div class="kind k-linux">Linux networking <span class="src">Academic</span></div>
           <h3><a href="https://github.com/Jeevanandh32/Adhoc-Network-Infrastructure-using-Linux" target="_blank" rel="noopener">Linux Network Infrastructure &amp; Monitoring</a></h3>
           <p>Primary and secondary BIND9 DNS and ISC DHCP on Ubuntu VMs, connected across physical hosts with NAT and IPsec. Verified with Wireshark, ping and traceroute; cron backups and Fail2Ban for maintenance and access protection.</p>
           <ul class="tags"><li>Ubuntu</li><li>VMware</li><li>BIND9</li><li>ISC DHCP</li><li>IPsec</li><li>Fail2Ban</li></ul>
@@ -243,7 +244,7 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; 
       <article class="card">
         <a class="shot" href="https://github.com/Jeevanandh32/AWS-S3-Connectivity-Tester" target="_blank" rel="noopener"><img src="assets/aws-s3-diagnostic.png" alt="boto3 tester checking IAM credentials, network path and S3 bucket, writing a JSON report" loading="lazy" width="1600" height="914"></a>
         <div class="body">
-          <div class="kind k-aws">Cloud automation</div>
+          <div class="kind k-aws">Cloud automation <span class="src">Self-driven</span></div>
           <h3><a href="https://github.com/Jeevanandh32/AWS-S3-Connectivity-Tester" target="_blank" rel="noopener">AWS S3 Storage Diagnostic Automation</a></h3>
           <p>Python/boto3 tool that checks credentials, network connectivity and nine S3 operations, tells 403, 404 and 500 failures apart, and writes JSON reports. Diagnosis went from 15 minutes to under 10 seconds.</p>
           <ul class="tags"><li>Python</li><li>boto3</li><li>AWS S3</li><li>IAM</li><li>JSON</li></ul>
@@ -252,7 +253,7 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; 
       <article class="card">
         <a class="shot" href="https://github.com/Jeevanandh32/FabricPilot" target="_blank" rel="noopener"><img src="assets/fabricpilot.png" alt="FabricPilot title slide with a spine and leaf fabric diagram" loading="lazy" width="1280" height="720"></a>
         <div class="body">
-          <div class="kind" style="color: var(--c-fabric)">Network automation</div>
+          <div class="kind" style="color: var(--c-fabric)">Network automation <span class="src">Self-driven</span></div>
           <h3><a href="https://github.com/Jeevanandh32/FabricPilot" target="_blank" rel="noopener">FabricPilot</a></h3>
           <p>The featured project above: Cisco and Juniper EVPN-VXLAN changes, validated, staged canary-first, health-checked and rolled back automatically.</p>
           <ul class="tags"><li>NX-OS</li><li>Junos</li><li>EVPN-VXLAN</li><li>Python</li><li>Ansible</li></ul>
