@@ -30,6 +30,7 @@
   --c-mpls: #f5a142;    /* MPLS L3VPN */
   --c-linux: #5ee08f;   /* Linux */
   --c-aws: #b9a3fb;     /* AWS S3 */
+  --c-sophos: #34d399;  /* Sophos site-to-site VPN */
   --font-display: "Archivo Narrow", "Arial Narrow", "Helvetica Neue", sans-serif;
   --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
@@ -105,7 +106,7 @@ section { padding-block: 72px 8px; scroll-margin-top: 60px; }
 .card p { color: var(--muted); font-size: 16px; margin: 0 0 14px; }
 .card .tags { margin-top: auto; margin-bottom: 0; }
 .k-probe { color: var(--c-probe); } .k-ha { color: var(--c-ha); } .k-mpls { color: var(--c-mpls); }
-.k-linux { color: var(--c-linux); } .k-aws { color: var(--c-aws); }
+.k-linux { color: var(--c-linux); } .k-aws { color: var(--c-aws); } .k-sophos { color: var(--c-sophos); }
 .card .src { font: 500 11px/1 var(--font-mono); letter-spacing: .08em; color: var(--muted); border: 1px solid var(--line); border-radius: 99px; padding: 4px 8px; margin-left: 8px; vertical-align: 1px; }
 
 /* experience */
@@ -172,6 +173,9 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; 
 .pipeline b:nth-of-type(4) { animation-delay: 3.6s; } .pipeline b:nth-of-type(5) { animation-delay: 4.8s; }
 .pipeline b:nth-of-type(6) { animation-delay: 6s; } .pipeline b:nth-of-type(7) { animation-delay: 7.2s; }
 @keyframes step { 0%, 14% { color: var(--bg); background: var(--c-fabric); border-radius: 4px; box-shadow: 0 0 0 3px var(--c-fabric); } 18%, 100% { color: var(--c-fabric); background: transparent; box-shadow: none; } }
+.featured.sophos .tag { color: var(--c-sophos); }
+.featured.sophos .pipeline b { color: var(--c-sophos); animation-name: step-sophos; }
+@keyframes step-sophos { 0%, 14% { color: var(--bg); background: var(--c-sophos); border-radius: 4px; box-shadow: 0 0 0 3px var(--c-sophos); } 18%, 100% { color: var(--c-sophos); background: transparent; box-shadow: none; } }
 /* cards */
 .card { transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease; }
 .card:hover { transform: translateY(-4px); border-color: #2c3546; box-shadow: 0 18px 40px -18px #000; }
@@ -265,10 +269,47 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; 
     </div>
   </section>
 
+  <section id="vpn">
+    <div class="eyebrow">Featured project</div>
+    <h2>Sophos Site-to-Site VPN</h2>
+    <div class="featured sophos">
+      <video controls muted playsinline preload="metadata" poster="assets/sophos-s2s-vpn.png" aria-label="Sophos Firewall site-to-site VPN lab, 1-minute silent walkthrough">
+        <source src="assets/sophos-s2s-vpn-demo.mp4" type="video/mp4">
+      </video>
+      <div>
+        <div class="eyebrow tag">Network security · Sophos on AWS</div>
+        <h3>Two firewalled sites joined by IPsec</h3>
+        <p>Two Sophos Firewalls in separate AWS VPCs, each protecting an Ubuntu host, built with Terraform and checked at every stage:</p>
+        <div class="pipeline"><b>terraform apply</b> → <b>firewall rules</b> → <b>NAT</b> → <b>web filter</b> → <b>IKEv2 tunnel</b> → <b>14/14 tests</b> → <b>backup &amp; restore</b></div>
+        <ul>
+          <li>IKEv2 IPsec through AWS 1:1 NAT: NAT-T on UDP 4500, Elastic IP identities, AES-256 with Curve25519</li>
+          <li>Ordered deny/allow rules with logging, masquerade NAT and category web filtering, proven with tcpdump and the IPsec SA</li>
+          <li>Took an encrypted config backup, made a change, restored it, and confirmed the change was reverted after the reboot</li>
+        </ul>
+        <ul class="tags">
+          <li>Sophos Firewall</li><li>IPsec / IKEv2</li><li>NAT</li><li>Web filtering</li><li>Terraform</li><li>CloudFormation</li><li>AWS VPC</li><li>tcpdump</li>
+        </ul>
+        <div class="links">
+          <a href="https://github.com/Jeevanandh32/sophos-firewall-site-to-site-vpn-lab" target="_blank" rel="noopener">Code on GitHub →</a>
+          <a href="https://github.com/Jeevanandh32/sophos-firewall-site-to-site-vpn-lab/tree/main/docs/evidence" target="_blank" rel="noopener">Evidence from the live lab →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section>
     <div class="eyebrow">More projects</div>
     <h2>Self-driven and Academic projects</h2>
     <div class="grid">
+      <article class="card">
+        <a class="shot" href="https://github.com/Jeevanandh32/sophos-firewall-site-to-site-vpn-lab" target="_blank" rel="noopener"><img src="assets/sophos-s2s-vpn.png" alt="Two Sophos Firewall sites in AWS VPCs joined by an IKEv2 IPsec tunnel" loading="lazy" width="1600" height="900"></a>
+        <div class="body">
+          <div class="kind k-sophos">Network security <span class="src">Self-driven</span></div>
+          <h3><a href="https://github.com/Jeevanandh32/sophos-firewall-site-to-site-vpn-lab" target="_blank" rel="noopener">Sophos Site-to-Site VPN Lab</a></h3>
+          <p>The featured VPN project above: two Sophos Firewalls on AWS, joined by IKEv2 IPsec, with every rule proven by tests.</p>
+          <ul class="tags"><li>Sophos Firewall</li><li>IPsec</li><li>NAT</li><li>Terraform</li><li>AWS</li></ul>
+        </div>
+      </article>
       <article class="card">
         <a class="shot" href="https://github.com/Jeevanandh32/ProbePulse" target="_blank" rel="noopener"><img src="assets/probepulse.png" alt="ProbePulse: blackbox exporter probing web, api and db containers, with Grafana alerting" loading="lazy" width="1600" height="914"></a>
         <div class="body">
