@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CloudBridge Demo</title>
+<meta name="description" content="2-minute demo: an active-passive network across AWS and Azure, built in Terraform and tested under real failures.">
+<meta property="og:type" content="video.other">
+<meta property="og:title" content="CloudBridge: multi-cloud failover demo (2 min)">
+<meta property="og:description" content="Active-passive network across AWS and Azure: IPsec + eBGP, Route 53 failover, Terraform. Tested under real failures.">
+<meta property="og:url" content="https://jeevanandh32.github.io/cloudbridge-demo.html">
+<meta property="og:image" content="https://jeevanandh32.github.io/assets/cloudbridge.png">
+<meta property="og:image:width" content="1600">
+<meta property="og:image:height" content="900">
+<meta property="og:video" content="https://jeevanandh32.github.io/assets/cloudbridge-demo.mp4">
+<meta property="og:video:type" content="video/mp4">
+<meta property="og:video:width" content="1920">
+<meta property="og:video:height" content="1080">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  :root { --bg: #02040a; --panel: #0b1426; --line: #1a2944; --fg: #f1f5fb; --muted: #9db0cc; --accent: #38bdf8; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg); }
+  body { font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; min-height: 100vh;
+         display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px 16px; gap: 16px; }
+  main { width: 100%; max-width: 1100px; display: grid; gap: 14px; }
+  h1 { margin: 0; font-size: clamp(22px, 4vw, 32px); }
+  p { margin: 0; color: var(--muted); }
+  video { width: 100%; aspect-ratio: 16 / 9; background: #000; border: 1px solid var(--line); border-radius: 12px; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<main>
+  <h1>CloudBridge: multi-cloud failover demo</h1>
+  <p>Active-passive network across AWS and Azure, built in Terraform and tested under real failures. 2 minutes, with music.</p>
+  <video controls playsinline preload="metadata" poster="assets/cloudbridge.png" aria-label="CloudBridge 2-minute demo">
+    <source src="assets/cloudbridge-demo.mp4" type="video/mp4">
+    <a href="assets/cloudbridge-demo.mp4">Download the video</a>
+  </video>
+  <p>Code, test data and runbook: <a href="https://github.com/Jeevanandh32/CloudBridge">github.com/Jeevanandh32/CloudBridge</a></p>
+</main>
+</body>
+</html>
