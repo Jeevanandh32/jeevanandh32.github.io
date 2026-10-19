@@ -31,6 +31,7 @@
   --c-linux: #5ee08f;   /* Linux */
   --c-aws: #b9a3fb;     /* AWS S3 */
   --c-sophos: #34d399;  /* Sophos site-to-site VPN */
+  --c-cloud: #38bdf8;   /* CloudBridge multi-cloud */
   --font-display: "Archivo Narrow", "Arial Narrow", "Helvetica Neue", sans-serif;
   --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
@@ -107,6 +108,7 @@ section { padding-block: 72px 8px; scroll-margin-top: 60px; }
 .card .tags { margin-top: auto; margin-bottom: 0; }
 .k-probe { color: var(--c-probe); } .k-ha { color: var(--c-ha); } .k-mpls { color: var(--c-mpls); }
 .k-linux { color: var(--c-linux); } .k-aws { color: var(--c-aws); } .k-sophos { color: var(--c-sophos); }
+.k-cloud { color: var(--c-cloud); }
 .card .src { font: 500 11px/1 var(--font-mono); letter-spacing: .08em; color: var(--muted); border: 1px solid var(--line); border-radius: 99px; padding: 4px 8px; margin-left: 8px; vertical-align: 1px; }
 
 /* experience */
@@ -176,6 +178,9 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; 
 .featured.sophos .tag { color: var(--c-sophos); }
 .featured.sophos .pipeline b { color: var(--c-sophos); animation-name: step-sophos; }
 @keyframes step-sophos { 0%, 14% { color: var(--bg); background: var(--c-sophos); border-radius: 4px; box-shadow: 0 0 0 3px var(--c-sophos); } 18%, 100% { color: var(--c-sophos); background: transparent; box-shadow: none; } }
+.featured.cloud .tag { color: var(--c-cloud); }
+.featured.cloud .pipeline b { color: var(--c-cloud); animation-name: step-cloud; }
+@keyframes step-cloud { 0%, 14% { color: var(--bg); background: var(--c-cloud); border-radius: 4px; box-shadow: 0 0 0 3px var(--c-cloud); } 18%, 100% { color: var(--c-cloud); background: transparent; box-shadow: none; } }
 /* cards */
 .card { transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease; }
 .card:hover { transform: translateY(-4px); border-color: #2c3546; box-shadow: 0 18px 40px -18px #000; }
@@ -226,7 +231,7 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; 
     <div class="eyebrow">Network Engineer · Boston, MA</div>
     <h1>Jeevanandh Ravi</h1>
     <p class="pitch">I build and troubleshoot networks, and automate changes so they go out safely.</p>
-    <p class="lede">Cisco and Juniper, routing and switching, and network automation with Python, Ansible and NetBox, and cloud networking on AWS and Google Cloud. Network Engineer co-op at Global Partners, now finishing an MS in Telecommunication Networks at Northeastern.</p>
+    <p class="lede">Cisco and Juniper, routing and switching, and network automation with Python, Ansible and NetBox, and cloud networking on AWS, Azure and Google Cloud. Network Engineer co-op at Global Partners, now finishing an MS in Telecommunication Networks at Northeastern.</p>
     <div class="spectrum" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
     <div class="chips">
       <span class="chip">MS Telecom Networks · Northeastern · Dec 2026</span>
@@ -242,6 +247,34 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; 
   </header>
 
   <section id="work">
+    <div class="eyebrow">Featured project</div>
+    <h2>CloudBridge</h2>
+    <div class="featured cloud">
+      <video controls playsinline preload="metadata" poster="assets/cloudbridge.png" aria-label="CloudBridge multi-cloud failover, 2-minute walkthrough with music">
+        <source src="assets/cloudbridge-demo.mp4" type="video/mp4">
+      </video>
+      <div>
+        <div class="eyebrow tag">Cloud networking · AWS + Azure</div>
+        <h3>Multi-cloud failover, broken on purpose</h3>
+        <p>EKS on AWS as primary and AKS on Azure as warm standby, joined by IPsec with BGP and fronted by Route 53 failover, all built with Terraform. Then I broke it and measured what users saw:</p>
+        <div class="pipeline"><b>Terraform</b> → <b>IPsec + eBGP</b> → <b>EKS + AKS</b> → <b>Route 53 failover</b> → <b>break it</b> → <b>measure</b> → <b>fix</b></div>
+        <ul>
+          <li>Reproduced the Oct 2025 AWS DNS outage: found DNS negative caching delaying recovery and cut failback from over 3 min to about 70 s</li>
+          <li>Failover detected in under 60 s, even with the whole AWS app and both VPN tunnels down; BGP moved traffic between tunnels in under 1 s</li>
+          <li>Tuned ALB and Kubernetes timers cut node-failure errors by 36%; a break/fix lab covered MTU/MSS, route propagation, NACLs and 502/503/504</li>
+        </ul>
+        <ul class="tags">
+          <li>Terraform</li><li>AWS EKS</li><li>Azure AKS</li><li>Route 53</li><li>IPsec / IKEv2</li><li>BGP</li><li>ALB / NLB</li><li>CloudWatch</li>
+        </ul>
+        <div class="links">
+          <a href="https://github.com/Jeevanandh32/CloudBridge" target="_blank" rel="noopener">Code on GitHub →</a>
+          <a href="https://github.com/Jeevanandh32/CloudBridge/blob/main/docs/results.md" target="_blank" rel="noopener">Test results →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="fabricpilot">
     <div class="eyebrow">Featured project</div>
     <h2>FabricPilot</h2>
     <div class="featured">
@@ -269,44 +302,25 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; 
     </div>
   </section>
 
-  <section id="vpn">
-    <div class="eyebrow">Featured project</div>
-    <h2>Sophos Site-to-Site VPN</h2>
-    <div class="featured sophos">
-      <video controls muted playsinline preload="metadata" poster="assets/sophos-s2s-vpn.png" aria-label="Sophos Firewall site-to-site VPN lab, 1-minute silent walkthrough">
-        <source src="assets/sophos-s2s-vpn-demo.mp4" type="video/mp4">
-      </video>
-      <div>
-        <div class="eyebrow tag">Network security · Sophos on AWS</div>
-        <h3>Two firewalled sites joined by IPsec</h3>
-        <p>Two Sophos Firewalls in separate AWS VPCs, each protecting an Ubuntu host, built with Terraform and checked at every stage:</p>
-        <div class="pipeline"><b>terraform apply</b> → <b>firewall rules</b> → <b>NAT</b> → <b>web filter</b> → <b>IKEv2 tunnel</b> → <b>14/14 tests</b> → <b>backup &amp; restore</b></div>
-        <ul>
-          <li>IKEv2 IPsec through AWS 1:1 NAT: NAT-T on UDP 4500, Elastic IP identities, AES-256 with Curve25519</li>
-          <li>Ordered deny/allow rules with logging, masquerade NAT and category web filtering, proven with tcpdump and the IPsec SA</li>
-          <li>Took an encrypted config backup, made a change, restored it, and confirmed the change was reverted after the reboot</li>
-        </ul>
-        <ul class="tags">
-          <li>Sophos Firewall</li><li>IPsec / IKEv2</li><li>NAT</li><li>Web filtering</li><li>Terraform</li><li>CloudFormation</li><li>AWS VPC</li><li>tcpdump</li>
-        </ul>
-        <div class="links">
-          <a href="https://github.com/Jeevanandh32/sophos-firewall-site-to-site-vpn-lab" target="_blank" rel="noopener">Code on GitHub →</a>
-          <a href="https://github.com/Jeevanandh32/sophos-firewall-site-to-site-vpn-lab/tree/main/docs/evidence" target="_blank" rel="noopener">Evidence from the live lab →</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <section>
     <div class="eyebrow">More projects</div>
     <h2>Self-driven and Academic projects</h2>
     <div class="grid">
       <article class="card">
+        <a class="shot" href="https://github.com/Jeevanandh32/CloudBridge" target="_blank" rel="noopener"><img src="assets/cloudbridge.png" alt="CloudBridge: AWS EKS and Azure AKS behind Route 53 failover, joined by IPsec with eBGP" loading="lazy" width="1600" height="900"></a>
+        <div class="body">
+          <div class="kind k-cloud">Cloud networking <span class="src">Self-driven</span></div>
+          <h3><a href="https://github.com/Jeevanandh32/CloudBridge" target="_blank" rel="noopener">CloudBridge</a></h3>
+          <p>The featured project above: AWS + Azure in Terraform with Route 53 failover and an IPsec/eBGP VPN, broken on purpose and measured. DNS failback went from over 3 minutes to about 70 s.</p>
+          <ul class="tags"><li>Terraform</li><li>EKS</li><li>AKS</li><li>Route 53</li><li>BGP</li><li>IPsec</li></ul>
+        </div>
+      </article>
+      <article class="card" id="vpn">
         <a class="shot" href="https://github.com/Jeevanandh32/sophos-firewall-site-to-site-vpn-lab" target="_blank" rel="noopener"><img src="assets/sophos-s2s-vpn.png" alt="Two Sophos Firewall sites in AWS VPCs joined by an IKEv2 IPsec tunnel" loading="lazy" width="1600" height="900"></a>
         <div class="body">
           <div class="kind k-sophos">Network security <span class="src">Self-driven</span></div>
           <h3><a href="https://github.com/Jeevanandh32/sophos-firewall-site-to-site-vpn-lab" target="_blank" rel="noopener">Sophos Site-to-Site VPN Lab</a></h3>
-          <p>The featured VPN project above: two Sophos Firewalls on AWS, joined by IKEv2 IPsec, with every rule proven by tests.</p>
+          <p>Two Sophos Firewalls in separate AWS VPCs, built with Terraform and joined by IKEv2 IPsec through AWS NAT. Firewall rules, NAT and web filtering were proven by 14/14 client tests and an encrypted backup-and-restore check.</p>
           <ul class="tags"><li>Sophos Firewall</li><li>IPsec</li><li>NAT</li><li>Terraform</li><li>AWS</li></ul>
         </div>
       </article>
@@ -360,7 +374,7 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; 
         <div class="body">
           <div class="kind" style="color: var(--c-fabric)">Network automation <span class="src">Self-driven</span></div>
           <h3><a href="https://github.com/Jeevanandh32/FabricPilot" target="_blank" rel="noopener">FabricPilot</a></h3>
-          <p>The featured project above: Cisco and Juniper EVPN-VXLAN changes, validated, staged canary-first, health-checked and rolled back automatically.</p>
+          <p>The second featured project above: Cisco and Juniper EVPN-VXLAN changes, validated, staged canary-first, health-checked and rolled back automatically.</p>
           <ul class="tags"><li>NX-OS</li><li>Junos</li><li>EVPN-VXLAN</li><li>Python</li><li>Ansible</li></ul>
         </div>
       </article>
@@ -411,12 +425,12 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; 
     <div class="eyebrow">Skills</div>
     <h2>What I work with</h2>
     <div class="skills">
-      <div class="skill"><div class="lbl">Networking</div><p>TCP/IP, IPv4/IPv6 subnetting, VLANs, 802.1Q, STP/RSTP, OSPF, BGP, EVPN-VXLAN, MPLS, DHCP, DNS, NAT/PAT</p></div>
+      <div class="skill"><div class="lbl">Networking</div><p>TCP/IP, IPv4/IPv6 subnetting, VLANs, 802.1Q, STP/RSTP, OSPF, BGP, EVPN-VXLAN, MPLS, IPsec/IKEv2, DHCP, DNS, NAT/PAT</p></div>
       <div class="skill"><div class="lbl">Platforms</div><p>Cisco IOS/IOS XE, Cisco NX-OS, Cisco Meraki Dashboard, Junos OS</p></div>
-      <div class="skill"><div class="lbl">Automation</div><p>Python, Bash, Ansible, Netmiko, NetBox, Jinja2, YAML, REST APIs, JSON, Git</p></div>
-      <div class="skill"><div class="lbl">Systems</div><p>Ubuntu Linux, VMware, Docker, Docker Compose, containerlab</p></div>
+      <div class="skill"><div class="lbl">Automation</div><p>Python, Bash, Terraform, Ansible, Netmiko, NetBox, Jinja2, YAML, REST APIs, JSON, Git</p></div>
+      <div class="skill"><div class="lbl">Systems</div><p>Ubuntu Linux, VMware, Docker, Docker Compose, containerlab, Kubernetes (EKS, AKS), Helm, Kustomize</p></div>
       <div class="skill"><div class="lbl">Monitoring &amp; troubleshooting</div><p>SolarWinds Orion, SNMP, Prometheus, Grafana, ServiceNow, Wireshark, tcpdump</p></div>
-      <div class="skill"><div class="lbl">Cloud</div><p>AWS (S3, IAM, VPC, boto3), Google Cloud (Compute Engine, Cloud Storage)</p></div>
+      <div class="skill"><div class="lbl">Cloud</div><p>AWS (VPC, Site-to-Site VPN, Route 53, ALB/NLB, EKS, CloudWatch, S3, IAM, boto3), Azure (VNet, VPN Gateway, AKS, Load Balancer, Monitor), Google Cloud (Compute Engine, Cloud Storage)</p></div>
       <div class="skill"><div class="lbl">AI-assisted engineering</div><p>Building with AI coding agents, verifying AI output on real devices and with tests, human-in-the-loop automation</p></div>
     </div>
   </section>
