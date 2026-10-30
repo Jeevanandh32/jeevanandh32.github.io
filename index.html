@@ -260,15 +260,15 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; 
         <div class="pipeline"><b>validate</b> → <b>render</b> → <b>plan</b> → <b>canary / batch rollout</b> → <b>health gate</b> → <b>verify</b> → <b>email report</b></div>
         <ul>
           <li>Canary-to-batch deployments with BGP/VXLAN health checks and automatic rollback</li>
-          <li>Run on real Nexus 9000v and vJunos-switch images on Google Cloud</li>
-          <li>Fixed 20+ issues found on real switch images, including a Cisco/Juniper EVPN interop bug, to get Layer 2 and Layer 3 traffic working between the vendors</li>
+          <li>Exercised on virtual Nexus 9000v and vJunos-switch images on Google Cloud, with 54 local tests for validation, rendering, rollout logic and parsing</li>
+          <li>Resolved documented Cisco/Juniper EVPN interop issues; lab evidence separates six-device control-plane checks from a 9/16 host ping matrix and a later halted canary run</li>
         </ul>
         <ul class="tags">
           <li>Python</li><li>Jinja2</li><li>Netmiko</li><li>Ansible</li><li>NetBox</li><li>containerlab</li><li>Google Cloud</li><li>BGP EVPN</li><li>VXLAN</li>
         </ul>
         <div class="links">
           <a href="https://github.com/Jeevanandh32/FabricPilot" target="_blank" rel="noopener">Code on GitHub →</a>
-          <a href="https://github.com/Jeevanandh32/FabricPilot/tree/main/docs/evidence" target="_blank" rel="noopener">Evidence from real switches →</a>
+          <a href="https://github.com/Jeevanandh32/FabricPilot/tree/main/docs/evidence" target="_blank" rel="noopener">Virtual switch lab evidence →</a>
         </div>
       </div>
     </div>
@@ -283,13 +283,13 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; 
       </video>
       <div>
         <div class="eyebrow tag">Cloud networking · AWS + Azure</div>
-        <h3>Multi-cloud failover, tested under real failures</h3>
-        <p>EKS on AWS as primary and AKS on Azure as warm standby, joined by IPsec with BGP and fronted by Route 53 failover, all built with Terraform. Then I injected real failures and measured what users saw:</p>
+        <h3>Multi-cloud failover, measured under injected failures</h3>
+        <p>EKS on AWS as primary and AKS on Azure as warm standby, connected by an IPsec/BGP VPN and fronted by Route 53 failover, all built with Terraform. Controlled lab failures measured client recovery separately from network status:</p>
         <div class="pipeline"><b>Terraform</b> → <b>IPsec + eBGP</b> → <b>EKS + AKS</b> → <b>Route 53 failover</b> → <b>inject faults</b> → <b>measure</b> → <b>fix</b></div>
         <ul>
-          <li>Reproduced the Oct 2025 AWS DNS outage: found DNS negative caching delaying recovery and cut failback from over 3 min to about 70 s</li>
-          <li>Failover detected in under 60 s, even with the whole AWS app and both VPN tunnels down; BGP moved traffic between tunnels in under 1 s</li>
-          <li>Tuned ALB and Kubernetes timers cut node-failure errors by 36%; a break/fix lab covered MTU/MSS, route propagation, NACLs and 502/503/504</li>
+          <li>Measured 77–107 s client failover across three application-loss tests and 68–78 s DNS failback after negative-cache tuning</li>
+          <li>Observed a 0.8 s maximum ping-reply gap, with nine unanswered probes, during one BGP failure test; simulated application-plus-VPN loss reached Azure at 102 s</li>
+          <li>Compared one default and two tuned node-failure runs: last-error time fell from 88.7 s to a 56.8 s mean (36%). Also measured MTU/MSS and investigated routing, NACL and load-balancer faults</li>
         </ul>
         <ul class="tags">
           <li>Terraform</li><li>AWS EKS</li><li>Azure AKS</li><li>Route 53</li><li>IPsec / IKEv2</li><li>BGP</li><li>ALB / NLB</li><li>CloudWatch</li>
@@ -311,7 +311,7 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; 
         <div class="body">
           <div class="kind k-cloud">Cloud networking <span class="src">Self-driven</span></div>
           <h3><a href="https://github.com/Jeevanandh32/CloudBridge" target="_blank" rel="noopener">CloudBridge</a></h3>
-          <p>The second featured project above: AWS + Azure in Terraform with Route 53 failover and an IPsec/eBGP VPN, tested with injected failures and measured. DNS failback went from over 3 minutes to about 70 s.</p>
+          <p>AWS and Azure infrastructure in Terraform with Route 53 failover and an IPsec/eBGP VPN. Controlled tests recorded 77–107 s application failover and 68–78 s DNS failback after tuning, with raw measurements in the repository.</p>
           <ul class="tags"><li>Terraform</li><li>EKS</li><li>AKS</li><li>Route 53</li><li>BGP</li><li>IPsec</li></ul>
         </div>
       </article>
@@ -325,11 +325,11 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; 
         </div>
       </article>
       <article class="card">
-        <a class="shot" href="https://github.com/Jeevanandh32/ProbePulse" target="_blank" rel="noopener"><img src="assets/probepulse.png" alt="ProbePulse: blackbox exporter probing web, api and db containers, with Grafana alerting" loading="lazy" width="1600" height="914"></a>
+        <a class="shot" href="https://github.com/Jeevanandh32/ProbePulse" target="_blank" rel="noopener"><img src="assets/probepulse.png" alt="ProbePulse: HTTP probing of a target container, with Grafana alerting and approved recovery" loading="lazy" width="1600" height="914"></a>
         <div class="body">
           <div class="kind k-probe">Observability <span class="src">Self-driven</span></div>
           <h3><a href="https://github.com/Jeevanandh32/ProbePulse" target="_blank" rel="noopener">ProbePulse</a></h3>
-          <p>Docker Compose lab that detects HTTP, connection and DNS failures. Prometheus Blackbox probes and Grafana alerts caught outages with a 36.95 s median; operator-approved recovery brought 5 of 5 back, 351 ms after approval.</p>
+          <p>Docker Compose diagnostics and monitoring lab. Five local stopped-container tests recorded 36.95 s median alert detection and 351 ms median post-approval recovery to HTTP 200, with 5/5 recoveries. Email delivery was not timed.</p>
           <ul class="tags"><li>Docker Compose</li><li>Prometheus</li><li>Grafana</li><li>tcpdump</li><li>Bash</li></ul>
         </div>
       </article>
@@ -338,8 +338,8 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; 
         <div class="body">
           <div class="kind k-ha">Network design <span class="src">Academic</span></div>
           <h3><a href="https://github.com/Jeevanandh32/Multi-Location-Network-Design-and-Implementation-using-Cisco-Packet-Tracer" target="_blank" rel="noopener">High-Availability Multi-Site Network</a></h3>
-          <p>Five-site enterprise WAN on Cisco IOS with 8 routers and 11 switches. Each site is its own OSPF area joined through area 0, with redundancy so losing a link, router or switch doesn't stop traffic.</p>
-          <ul class="tags"><li>Multi-area OSPF</li><li>EIGRP</li><li>GRE over IPsec</li><li>HSRP</li><li>Rapid PVST+</li><li>LACP</li></ul>
+          <p>Five-site Cisco Packet Tracer lab with 8 routers and 11 switches, covering multi-area OSPF, EIGRP, GRE, VLAN segmentation, gateway redundancy and connectivity checks. Failover timing was not benchmarked.</p>
+          <ul class="tags"><li>Multi-area OSPF</li><li>EIGRP</li><li>GRE</li><li>HSRP</li><li>Rapid PVST+</li><li>LACP</li></ul>
         </div>
       </article>
       <article class="card">
@@ -352,12 +352,12 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; 
         </div>
       </article>
       <article class="card">
-        <a class="shot" href="https://github.com/Jeevanandh32/Adhoc-Network-Infrastructure-using-Linux" target="_blank" rel="noopener"><img src="assets/linux-infrastructure.png" alt="Two physical hosts running VMware with BIND9 DNS, ISC DHCP and an IPsec tunnel" loading="lazy" width="1600" height="900"></a>
+        <a class="shot" href="https://github.com/Jeevanandh32/Adhoc-Network-Infrastructure-using-Linux" target="_blank" rel="noopener"><img src="assets/linux-infrastructure.png" alt="Linux networking lab with DNS, VPN and backup examples" loading="lazy" width="1600" height="900"></a>
         <div class="body">
           <div class="kind k-linux">Linux networking <span class="src">Academic</span></div>
           <h3><a href="https://github.com/Jeevanandh32/Adhoc-Network-Infrastructure-using-Linux" target="_blank" rel="noopener">Linux Network Infrastructure &amp; Monitoring</a></h3>
-          <p>Primary and secondary BIND9 DNS and ISC DHCP on Ubuntu VMs, connected across physical hosts with NAT and IPsec. Verified with Wireshark, ping and traceroute; cron backups and Fail2Ban for maintenance and access protection.</p>
-          <ul class="tags"><li>Ubuntu</li><li>VMware</li><li>BIND9</li><li>ISC DHCP</li><li>IPsec</li><li>Fail2Ban</li></ul>
+          <p>Ubuntu lab examples for primary IPv4 BIND9 DNS zones, strongSwan IPsec/IKEv2 and archive/SCP backup automation, with configuration files, diagnostic samples and documented implementation limits.</p>
+          <ul class="tags"><li>Ubuntu</li><li>BIND9</li><li>strongSwan</li><li>IPsec/IKEv2</li><li>Bash</li><li>SCP</li></ul>
         </div>
       </article>
       <article class="card">
@@ -365,7 +365,7 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; 
         <div class="body">
           <div class="kind k-aws">Cloud automation <span class="src">Self-driven</span></div>
           <h3><a href="https://github.com/Jeevanandh32/AWS-S3-Connectivity-Tester" target="_blank" rel="noopener">AWS S3 Storage Diagnostic Automation</a></h3>
-          <p>Python/boto3 tool that checks credentials, network connectivity and nine S3 operations, tells 403, 404 and 500 failures apart, and writes JSON reports. Diagnosis went from 15 minutes to under 10 seconds.</p>
+          <p>Python/boto3 tool for credential validation and S3 bucket, object, multipart-upload and versioning checks, with JSON reporting and SDK error-handling examples. Cleanup failures are reported; no timing speedup is claimed.</p>
           <ul class="tags"><li>Python</li><li>boto3</li><li>AWS S3</li><li>IAM</li><li>JSON</li></ul>
         </div>
       </article>
@@ -431,7 +431,7 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; 
       <div class="skill"><div class="lbl">Systems</div><p>Ubuntu Linux, VMware, Docker, Docker Compose, containerlab, Kubernetes (EKS, AKS), Helm, Kustomize</p></div>
       <div class="skill"><div class="lbl">Monitoring &amp; troubleshooting</div><p>SolarWinds Orion, SNMP, Prometheus, Grafana, ServiceNow, Wireshark, tcpdump</p></div>
       <div class="skill"><div class="lbl">Cloud</div><p>AWS (VPC, Site-to-Site VPN, Route 53, ALB/NLB, EKS, CloudWatch, S3, IAM, boto3), Azure (VNet, VPN Gateway, AKS, Load Balancer, Monitor), Google Cloud (Compute Engine, Cloud Storage)</p></div>
-      <div class="skill"><div class="lbl">AI-assisted engineering</div><p>Building with AI coding agents, verifying AI output on real devices and with tests, human-in-the-loop automation</p></div>
+      <div class="skill"><div class="lbl">AI-assisted engineering</div><p>Building with AI coding agents, checking generated output against virtual-switch labs and automated tests, operator-approved recovery</p></div>
     </div>
   </section>
 
