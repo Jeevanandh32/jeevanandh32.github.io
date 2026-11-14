@@ -7,7 +7,7 @@
 <meta name="description" content="Jeevanandh Ravi, network engineer in Boston. Cisco and Juniper, network automation with Python, Ansible and NetBox, cloud networking with Terraform, EVPN-VXLAN, BGP and OSPF.">
 <meta property="og:title" content="Jeevanandh Ravi · Network Engineer">
 <meta property="og:description" content="Network engineering and automation: Cisco NX-OS, Juniper Junos, EVPN-VXLAN, Python, Ansible, NetBox, Terraform.">
-<meta property="og:image" content="https://jeevanandh32.github.io/assets/fabricpilot.png">
+<meta property="og:image" content="https://jeevanandh32.github.io/assets/tradehunt.png">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2307080c'/%3E%3Ctext x='32' y='43' font-family='Arial Narrow,Arial' font-weight='700' font-size='30' fill='%23eef1f6' text-anchor='middle'%3EJR%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -255,6 +255,34 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; 
 
   <section id="work">
     <div class="eyebrow">Featured project</div>
+    <h2 id="tradehunt" style="scroll-margin-top: 70px">TradeHunt</h2>
+    <div class="featured trade">
+      <video controls playsinline preload="metadata" poster="assets/tradehunt.png" aria-label="TradeHunt market-data feed troubleshooting, 2-minute walkthrough with music">
+        <source src="assets/tradehunt-demo.mp4" type="video/mp4">
+      </video>
+      <div>
+        <div class="eyebrow tag">Market-data networking · Arista + multicast</div>
+        <h3>Market-data feed failures, broken on purpose and diagnosed</h3>
+        <p>A lab that rebuilds how exchanges deliver market data on redundant A/B multicast feeds, using four Arista cEOS switches on Google Cloud. It replays real Nasdaq TotalView-ITCH data, injects six realistic incidents and diagnoses each one:</p>
+        <div class="pipeline"><b>Nasdaq ITCH</b> → <b>MoldUDP64</b> → <b>PIM-SSM A/B</b> → <b>arbitration</b> → <b>inject fault</b> → <b>alert</b> → <b>diagnose</b></div>
+        <ul>
+          <li>Replayed the market open (peak 698K msgs/s in the data) at 1/10 speed: 2,440,699 messages with 0 gaps on both feeds; software switches limit the lab to about 2,000 packets/s per feed</li>
+          <li>With 2% loss on both feeds, retransmission recovered the 268 messages both feeds lost, with 0 lost; a silently dead feed raised an alert in 6.1–7.0 s while clients lost nothing</li>
+          <li>Diagnostic tool named the correct root cause in 18 of 18 blind runs across all six incidents (multicast TTL, rp_filter, IGMP querier, RPF, socket buffer, dead uplink)</li>
+        </ul>
+        <ul class="tags">
+          <li>Arista cEOS</li><li>PIM-SSM</li><li>IGMPv3</li><li>OSPF</li><li>Python</li><li>Containerlab</li><li>Prometheus</li><li>Grafana</li><li>Terraform</li><li>Google Cloud</li>
+        </ul>
+        <div class="links">
+          <a href="https://github.com/Jeevanandh32/TradeHunt" target="_blank" rel="noopener">Code on GitHub →</a>
+          <a href="https://github.com/Jeevanandh32/TradeHunt/blob/main/RESULTS.md" target="_blank" rel="noopener">Measured results →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="fabricpilot">
+    <div class="eyebrow">Featured project</div>
     <h2>FabricPilot</h2>
     <div class="featured">
       <video controls preload="metadata" poster="assets/fabricpilot.png" aria-label="FabricPilot 2-minute demo">
@@ -304,34 +332,6 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; 
         <div class="links">
           <a href="https://github.com/Jeevanandh32/CloudBridge" target="_blank" rel="noopener">Code on GitHub →</a>
           <a href="https://github.com/Jeevanandh32/CloudBridge/blob/main/docs/results.md" target="_blank" rel="noopener">Test results →</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="tradehunt">
-    <div class="eyebrow">Featured project</div>
-    <h2>TradeHunt</h2>
-    <div class="featured trade">
-      <video controls playsinline preload="metadata" poster="assets/tradehunt.png" aria-label="TradeHunt market-data feed troubleshooting, 2-minute walkthrough with music">
-        <source src="assets/tradehunt-demo.mp4" type="video/mp4">
-      </video>
-      <div>
-        <div class="eyebrow tag">Market-data networking · Arista + multicast</div>
-        <h3>Market-data feed failures, broken on purpose and diagnosed</h3>
-        <p>A lab that rebuilds how exchanges deliver market data on redundant A/B multicast feeds, using four Arista cEOS switches on Google Cloud. It replays real Nasdaq TotalView-ITCH data, injects six realistic incidents and diagnoses each one:</p>
-        <div class="pipeline"><b>Nasdaq ITCH</b> → <b>MoldUDP64</b> → <b>PIM-SSM A/B</b> → <b>arbitration</b> → <b>inject fault</b> → <b>alert</b> → <b>diagnose</b></div>
-        <ul>
-          <li>Replayed the market open (peak 698K msgs/s in the data) at 1/10 speed: 2,440,699 messages with 0 gaps on both feeds; software switches limit the lab to about 2,000 packets/s per feed</li>
-          <li>With 2% loss on both feeds, retransmission recovered the 268 messages both feeds lost, with 0 lost; a silently dead feed raised an alert in 6.1–7.0 s while clients lost nothing</li>
-          <li>Diagnostic tool named the correct root cause in 18 of 18 blind runs across all six incidents (multicast TTL, rp_filter, IGMP querier, RPF, socket buffer, dead uplink)</li>
-        </ul>
-        <ul class="tags">
-          <li>Arista cEOS</li><li>PIM-SSM</li><li>IGMPv3</li><li>OSPF</li><li>Python</li><li>Containerlab</li><li>Prometheus</li><li>Grafana</li><li>Terraform</li><li>Google Cloud</li>
-        </ul>
-        <div class="links">
-          <a href="https://github.com/Jeevanandh32/TradeHunt" target="_blank" rel="noopener">Code on GitHub →</a>
-          <a href="https://github.com/Jeevanandh32/TradeHunt/blob/main/RESULTS.md" target="_blank" rel="noopener">Measured results →</a>
         </div>
       </div>
     </div>
