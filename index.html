@@ -32,6 +32,7 @@
   --c-aws: #b9a3fb;     /* AWS S3 */
   --c-sophos: #34d399;  /* Sophos site-to-site VPN */
   --c-cloud: #38bdf8;   /* CloudBridge multi-cloud */
+  --c-trade: #fbbf24;   /* TradeHunt market data */
   --font-display: "Archivo Narrow", "Arial Narrow", "Helvetica Neue", sans-serif;
   --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
@@ -108,7 +109,7 @@ section { padding-block: 72px 8px; scroll-margin-top: 60px; }
 .card .tags { margin-top: auto; margin-bottom: 0; }
 .k-probe { color: var(--c-probe); } .k-ha { color: var(--c-ha); } .k-mpls { color: var(--c-mpls); }
 .k-linux { color: var(--c-linux); } .k-aws { color: var(--c-aws); } .k-sophos { color: var(--c-sophos); }
-.k-cloud { color: var(--c-cloud); }
+.k-cloud { color: var(--c-cloud); } .k-trade { color: var(--c-trade); }
 .card .src { font: 500 11px/1 var(--font-mono); letter-spacing: .08em; color: var(--muted); border: 1px solid var(--line); border-radius: 99px; padding: 4px 8px; margin-left: 8px; vertical-align: 1px; }
 
 /* experience */
@@ -182,6 +183,9 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; 
 .featured.cloud .tag { color: var(--c-cloud); }
 .featured.cloud .pipeline b { color: var(--c-cloud); animation-name: step-cloud; }
 @keyframes step-cloud { 0%, 14% { color: var(--bg); background: var(--c-cloud); border-radius: 4px; box-shadow: 0 0 0 3px var(--c-cloud); } 18%, 100% { color: var(--c-cloud); background: transparent; box-shadow: none; } }
+.featured.trade .tag { color: var(--c-trade); }
+.featured.trade .pipeline b { color: var(--c-trade); animation-name: step-trade; }
+@keyframes step-trade { 0%, 14% { color: var(--bg); background: var(--c-trade); border-radius: 4px; box-shadow: 0 0 0 3px var(--c-trade); } 18%, 100% { color: var(--c-trade); background: transparent; box-shadow: none; } }
 /* cards */
 .card { transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease; }
 .card:hover { transform: translateY(-4px); border-color: #2c3546; box-shadow: 0 18px 40px -18px #000; }
@@ -305,10 +309,47 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; 
     </div>
   </section>
 
+  <section id="tradehunt">
+    <div class="eyebrow">Featured project</div>
+    <h2>TradeHunt</h2>
+    <div class="featured trade">
+      <video controls playsinline preload="metadata" poster="assets/tradehunt.png" aria-label="TradeHunt market-data feed troubleshooting, 2-minute walkthrough with music">
+        <source src="assets/tradehunt-demo.mp4" type="video/mp4">
+      </video>
+      <div>
+        <div class="eyebrow tag">Market-data networking · Arista + multicast</div>
+        <h3>Market-data feed failures, broken on purpose and diagnosed</h3>
+        <p>A lab that rebuilds how exchanges deliver market data on redundant A/B multicast feeds, using four Arista cEOS switches on Google Cloud. It replays real Nasdaq TotalView-ITCH data, injects six realistic incidents and diagnoses each one:</p>
+        <div class="pipeline"><b>Nasdaq ITCH</b> → <b>MoldUDP64</b> → <b>PIM-SSM A/B</b> → <b>arbitration</b> → <b>inject fault</b> → <b>alert</b> → <b>diagnose</b></div>
+        <ul>
+          <li>Replayed the market open (peak 698K msgs/s in the data) at 1/10 speed: 2,440,699 messages with 0 gaps on both feeds; software switches limit the lab to about 2,000 packets/s per feed</li>
+          <li>With 2% loss on both feeds, retransmission recovered the 268 messages both feeds lost, with 0 lost; a silently dead feed raised an alert in 6.1–7.0 s while clients lost nothing</li>
+          <li>Diagnostic tool named the correct root cause in 18 of 18 blind runs across all six incidents (multicast TTL, rp_filter, IGMP querier, RPF, socket buffer, dead uplink)</li>
+        </ul>
+        <ul class="tags">
+          <li>Arista cEOS</li><li>PIM-SSM</li><li>IGMPv3</li><li>OSPF</li><li>Python</li><li>Containerlab</li><li>Prometheus</li><li>Grafana</li><li>Terraform</li><li>Google Cloud</li>
+        </ul>
+        <div class="links">
+          <a href="https://github.com/Jeevanandh32/TradeHunt" target="_blank" rel="noopener">Code on GitHub →</a>
+          <a href="https://github.com/Jeevanandh32/TradeHunt/blob/main/RESULTS.md" target="_blank" rel="noopener">Measured results →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section>
     <div class="eyebrow">More projects</div>
     <h2>Self-driven and Academic projects</h2>
     <div class="grid">
+      <article class="card">
+        <a class="shot" href="https://github.com/Jeevanandh32/TradeHunt" target="_blank" rel="noopener"><img src="assets/tradehunt.png" alt="TradeHunt: an exchange sending feed A and feed B to a trading server that merges them" loading="lazy" width="1600" height="900"></a>
+        <div class="body">
+          <div class="kind k-trade">Market-data networking <span class="src">Self-driven</span></div>
+          <h3><a href="https://github.com/Jeevanandh32/TradeHunt" target="_blank" rel="noopener">TradeHunt</a></h3>
+          <p>Redundant A/B multicast feeds on four Arista cEOS switches, replaying real Nasdaq ITCH data at 1/10 speed. Six injected incidents, a silent-feed alert in 6.1–7.0 s, and a diagnostic tool that was correct in 18 of 18 blind runs.</p>
+          <ul class="tags"><li>Arista EOS</li><li>PIM-SSM</li><li>IGMPv3</li><li>Python</li><li>Prometheus</li></ul>
+        </div>
+      </article>
       <article class="card">
         <a class="shot" href="https://github.com/Jeevanandh32/CloudBridge" target="_blank" rel="noopener"><img src="assets/cloudbridge.png" alt="CloudBridge: AWS EKS and Azure AKS behind Route 53 failover, joined by IPsec with eBGP" loading="lazy" width="1600" height="900"></a>
         <div class="body">
