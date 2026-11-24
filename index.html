@@ -284,34 +284,6 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; 
     </div>
   </section>
 
-  <section>
-    <div class="eyebrow">Featured project</div>
-    <h2 id="tradehunt" style="scroll-margin-top: 70px">TradeHunt</h2>
-    <div class="featured trade">
-      <video controls playsinline preload="metadata" poster="assets/tradehunt.png" aria-label="TradeHunt market-data feed troubleshooting, 2-minute walkthrough with music">
-        <source src="assets/tradehunt-demo.mp4" type="video/mp4">
-      </video>
-      <div>
-        <div class="eyebrow tag">Market-data networking · Arista + multicast</div>
-        <h3>Market-data feed failures, broken on purpose and diagnosed</h3>
-        <p>A lab that rebuilds how exchanges deliver market data on redundant A/B multicast feeds, using four Arista cEOS switches on Google Cloud. It replays real Nasdaq TotalView-ITCH data, injects six realistic incidents and diagnoses each one:</p>
-        <div class="pipeline"><b>Nasdaq ITCH</b> → <b>MoldUDP64</b> → <b>PIM-SSM A/B</b> → <b>arbitration</b> → <b>inject fault</b> → <b>alert</b> → <b>diagnose</b></div>
-        <ul>
-          <li>Replayed the market open (peak 698K msgs/s in the data) at 1/10 speed: 2,440,699 messages with 0 gaps on both feeds; software switches limit the lab to about 2,000 packets/s per feed</li>
-          <li>With 2% loss on both feeds, retransmission recovered the 268 messages both feeds lost, with 0 lost; a silently dead feed raised an alert in 6.1–7.0 s while clients lost nothing</li>
-          <li>Diagnostic tool named the correct root cause in 18 of 18 blind runs across all six incidents (multicast TTL, rp_filter, IGMP querier, RPF, socket buffer, dead uplink)</li>
-        </ul>
-        <ul class="tags">
-          <li>Arista cEOS</li><li>PIM-SSM</li><li>IGMPv3</li><li>OSPF</li><li>Python</li><li>Containerlab</li><li>Prometheus</li><li>Grafana</li><li>Terraform</li><li>Google Cloud</li>
-        </ul>
-        <div class="links">
-          <a href="https://github.com/Jeevanandh32/TradeHunt" target="_blank" rel="noopener">Code on GitHub →</a>
-          <a href="https://github.com/Jeevanandh32/TradeHunt/blob/main/RESULTS.md" target="_blank" rel="noopener">Measured results →</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <section id="fabricpilot">
     <div class="eyebrow">Featured project</div>
     <h2>FabricPilot</h2>
@@ -340,6 +312,33 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; 
     </div>
   </section>
 
+  <section>
+    <div class="eyebrow">Featured project</div>
+    <h2 id="tradehunt" style="scroll-margin-top: 70px">TradeHunt</h2>
+    <div class="featured trade">
+      <video controls playsinline preload="metadata" poster="assets/tradehunt.png" aria-label="TradeHunt market-data feed troubleshooting, 2-minute walkthrough with music">
+        <source src="assets/tradehunt-demo.mp4" type="video/mp4">
+      </video>
+      <div>
+        <div class="eyebrow tag">Market-data networking · Arista + multicast</div>
+        <h3>Market-data feed failures, broken on purpose and diagnosed</h3>
+        <p>A lab that rebuilds how exchanges deliver market data on redundant A/B multicast feeds, using four Arista cEOS switches on Google Cloud. It replays real Nasdaq TotalView-ITCH data, injects six realistic incidents and diagnoses each one:</p>
+        <div class="pipeline"><b>Nasdaq ITCH</b> → <b>MoldUDP64</b> → <b>PIM-SSM A/B</b> → <b>arbitration</b> → <b>inject fault</b> → <b>alert</b> → <b>diagnose</b></div>
+        <ul>
+          <li>Replayed the market open (peak 698K msgs/s in the data) at 1/10 speed: 2,440,699 messages with 0 gaps on both feeds; software switches limit the lab to about 2,000 packets/s per feed</li>
+          <li>With 2% loss on both feeds, retransmission recovered the 268 messages both feeds lost, with 0 lost; a silently dead feed raised an alert in 6.1–7.0 s while clients lost nothing</li>
+          <li>Diagnostic tool named the correct root cause in 18 of 18 blind runs across all six incidents (multicast TTL, rp_filter, IGMP querier, RPF, socket buffer, dead uplink)</li>
+        </ul>
+        <ul class="tags">
+          <li>Arista cEOS</li><li>PIM-SSM</li><li>IGMPv3</li><li>OSPF</li><li>Python</li><li>Containerlab</li><li>Prometheus</li><li>Grafana</li><li>Terraform</li><li>Google Cloud</li>
+        </ul>
+        <div class="links">
+          <a href="https://github.com/Jeevanandh32/TradeHunt" target="_blank" rel="noopener">Code on GitHub →</a>
+          <a href="https://github.com/Jeevanandh32/TradeHunt/blob/main/RESULTS.md" target="_blank" rel="noopener">Measured results →</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <section>
     <div class="eyebrow">More projects</div>
