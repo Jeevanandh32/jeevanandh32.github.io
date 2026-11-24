@@ -257,6 +257,35 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; 
 
   <section id="work">
     <div class="eyebrow">Featured project</div>
+    <h2 id="cloudbridge" style="scroll-margin-top: 110px">CloudBridge</h2>
+    <div class="featured cloud">
+      <video controls playsinline preload="metadata" poster="assets/cloudbridge.png" aria-label="CloudBridge 2-minute walkthrough with music">
+        <source src="assets/cloudbridge-demo.mp4" type="video/mp4">
+      </video>
+      <div>
+        <div class="eyebrow tag">Cloud networking · AWS + Azure</div>
+        <h3>Multi-cloud hub-and-spoke network, measured under injected failures</h3>
+        <p>An active-passive network across AWS and Azure, built in Terraform. It has a Transit Gateway with inspection firewalls on AWS, a hub VNet with a firewall VM on Azure, a 4-tunnel active-active IPsec/eBGP VPN, EKS and AKS, and DNS served by both Route 53 and Azure DNS. Six controlled lab tests, each measured:</p>
+        <div class="pipeline"><b>Terraform</b> → <b>hub-and-spoke + firewalls</b> → <b>4× IPsec + eBGP</b> → <b>EKS + AKS</b> → <b>Route 53 + Azure DNS</b> → <b>inject faults</b> → <b>measure</b> → <b>fix</b></div>
+        <ul>
+          <li>With every Route 53 name server unreachable, Azure DNS answered 304 of 304 lookups and users failed over in 36.4 s. With the app and all four tunnels cut, users reached Azure in 41.7 s (102 s in the earlier single-provider build)</li>
+          <li>A BGP configuration break on one tunnel dropped no packets across 16 test flows. A VPN gateway instance reset paused 38% of flows for 22–31 s, with no full outage</li>
+          <li>Found and fixed failures that look healthy: a missing Transit Gateway route that blackholed traffic; /28 fragmentation that stalled an EKS node rollout (custom networking then took pods from 18 to 204); and an AKS inbound path dropped by the node security group</li>
+          <li>Built MindBridge AI, a read-only Python tool that checks Terraform plans before apply (it blocked both injected Transit Gateway changes) and warned 9–14 minutes before an injected packet-loss ramp crossed 5%, with no false alarms</li>
+        </ul>
+        <ul class="tags">
+          <li>Terraform</li><li>Transit Gateway</li><li>Azure hub VNet</li><li>IPsec / IKEv2</li><li>BGP / ECMP</li><li>EKS</li><li>AKS / Cilium</li><li>Route 53</li><li>Azure DNS</li><li>Python</li>
+        </ul>
+        <div class="links">
+          <a href="https://github.com/Jeevanandh32/CloudBridge" target="_blank" rel="noopener">Code on GitHub →</a>
+          <a href="https://github.com/Jeevanandh32/CloudBridge#results" target="_blank" rel="noopener">Test results →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">Featured project</div>
     <h2 id="tradehunt" style="scroll-margin-top: 70px">TradeHunt</h2>
     <div class="featured trade">
       <video controls playsinline preload="metadata" poster="assets/tradehunt.png" aria-label="TradeHunt market-data feed troubleshooting, 2-minute walkthrough with music">
@@ -311,34 +340,6 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; 
     </div>
   </section>
 
-  <section id="cloudbridge">
-    <div class="eyebrow">Featured project</div>
-    <h2>CloudBridge</h2>
-    <div class="featured cloud">
-      <video controls playsinline preload="metadata" poster="assets/cloudbridge.png" aria-label="CloudBridge 2-minute walkthrough with music">
-        <source src="assets/cloudbridge-demo.mp4" type="video/mp4">
-      </video>
-      <div>
-        <div class="eyebrow tag">Cloud networking · AWS + Azure</div>
-        <h3>Multi-cloud hub-and-spoke network, measured under injected failures</h3>
-        <p>An active-passive network across AWS and Azure, built in Terraform. It has a Transit Gateway with inspection firewalls on AWS, a hub VNet with a firewall VM on Azure, a 4-tunnel active-active IPsec/eBGP VPN, EKS and AKS, and DNS served by both Route 53 and Azure DNS. Six controlled lab tests, each measured:</p>
-        <div class="pipeline"><b>Terraform</b> → <b>hub-and-spoke + firewalls</b> → <b>4× IPsec + eBGP</b> → <b>EKS + AKS</b> → <b>Route 53 + Azure DNS</b> → <b>inject faults</b> → <b>measure</b> → <b>fix</b></div>
-        <ul>
-          <li>With every Route 53 name server unreachable, Azure DNS answered 304 of 304 lookups and users failed over in 36.4 s. With the app and all four tunnels cut, users reached Azure in 41.7 s (102 s in the earlier single-provider build)</li>
-          <li>A BGP configuration break on one tunnel dropped no packets across 16 test flows. A VPN gateway instance reset paused 38% of flows for 22–31 s, with no full outage</li>
-          <li>Found and fixed failures that look healthy: a missing Transit Gateway route that blackholed traffic; /28 fragmentation that stalled an EKS node rollout (custom networking then took pods from 18 to 204); and an AKS inbound path dropped by the node security group</li>
-          <li>Built MindBridge AI, a read-only Python tool that checks Terraform plans before apply (it blocked both injected Transit Gateway changes) and warned 9–14 minutes before an injected packet-loss ramp crossed 5%, with no false alarms</li>
-        </ul>
-        <ul class="tags">
-          <li>Terraform</li><li>Transit Gateway</li><li>Azure hub VNet</li><li>IPsec / IKEv2</li><li>BGP / ECMP</li><li>EKS</li><li>AKS / Cilium</li><li>Route 53</li><li>Azure DNS</li><li>Python</li>
-        </ul>
-        <div class="links">
-          <a href="https://github.com/Jeevanandh32/CloudBridge" target="_blank" rel="noopener">Code on GitHub →</a>
-          <a href="https://github.com/Jeevanandh32/CloudBridge#results" target="_blank" rel="noopener">Test results →</a>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <section>
     <div class="eyebrow">More projects</div>
