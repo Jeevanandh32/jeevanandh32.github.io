@@ -328,9 +328,10 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; 
           <li>Replayed the market open (peak 698K msgs/s in the data) at 1/10 speed: 2,440,699 messages with 0 gaps on both feeds; software switches limit the lab to about 2,000 packets/s per feed</li>
           <li>With 2% loss on both feeds, retransmission recovered the 268 messages both feeds lost, with 0 lost; a silently dead feed raised an alert in 6.1–7.0 s while clients lost nothing</li>
           <li>Diagnostic tool named the correct root cause in 18 of 18 blind runs across all six incidents (multicast TTL, rp_filter, IGMP querier, RPF, socket buffer, dead uplink)</li>
+          <li>Built feedscope, an analyzer for any MoldUDP64 packet capture. On the real open at full speed it found 1 ms bursts at 2.3× the busiest second; on a real lab capture, its feed loss count matched the feed handler's within 0.05%</li>
         </ul>
         <ul class="tags">
-          <li>Arista cEOS</li><li>PIM-SSM</li><li>IGMPv3</li><li>OSPF</li><li>Python</li><li>Containerlab</li><li>Prometheus</li><li>Grafana</li><li>Terraform</li><li>Google Cloud</li>
+          <li>Arista cEOS</li><li>PIM-SSM</li><li>IGMPv3</li><li>OSPF</li><li>Python</li><li>Containerlab</li><li>Prometheus</li><li>Grafana</li><li>tcpdump</li><li>Terraform</li><li>Google Cloud</li>
         </ul>
         <div class="links">
           <a href="https://github.com/Jeevanandh32/TradeHunt" target="_blank" rel="noopener">Code on GitHub →</a>
@@ -349,7 +350,7 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; 
         <div class="body">
           <div class="kind k-trade">Market-data networking <span class="src">Self-driven</span></div>
           <h3><a href="https://github.com/Jeevanandh32/TradeHunt" target="_blank" rel="noopener">TradeHunt</a></h3>
-          <p>Redundant A/B multicast feeds on four Arista cEOS switches, replaying real Nasdaq ITCH data at 1/10 speed. Six injected incidents, a silent-feed alert in 6.1–7.0 s, and a diagnostic tool that was correct in 18 of 18 blind runs.</p>
+          <p>Redundant A/B multicast feeds on four Arista cEOS switches, replaying real Nasdaq ITCH data at 1/10 speed. Six injected incidents, a silent-feed alert in 6.1–7.0 s, a diagnostic tool correct in 18 of 18 blind runs, and a capture analyzer that finds microbursts and silent feeds.</p>
           <ul class="tags"><li>Arista EOS</li><li>PIM-SSM</li><li>IGMPv3</li><li>Python</li><li>Prometheus</li></ul>
         </div>
       </article>
