@@ -413,7 +413,7 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; 
         <h3>Graduate Teaching Assistant, Linux for Network Engineers</h3>
         <div class="org">Northeastern University · Boston, MA</div>
         <ul>
-          <li>Co-run hands-on Linux labs with the professor for 20+ graduate students: Ubuntu and Bash scripting</li>
+          <li>Co-run hands-on Linux labs with the professor for 25+ graduate students: Ubuntu and Bash scripting</li>
           <li>Write technical guides, code samples and lab summaries; troubleshoot student VM setups on Windows and macOS</li>
         </ul>
       </div>
@@ -421,13 +421,14 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; 
         <canvas id="ring" aria-label="300+ incidents resolved, 88% same-day" role="img"></canvas>
         <div class="when">Jan 2026 – Jun 2026</div>
         <h3>Network Engineer (Co-op)</h3>
-        <div class="org">Global Partners · Waltham, MA</div>
+        <div class="org">Global Partners · Newton, MA</div>
         <ul>
-          <li>Owned Tier 1/2 investigations: resolved <span class="stat">300+</span> WAN, LAN, Wi-Fi and POS incidents across <span class="stat">890+</span> retail sites, with <span class="stat">88%</span> same-day resolution</li>
-          <li>Configured Cisco routers and switches and provisioned Meraki APs and cellular gateways: VLANs, access/trunk ports, IP addressing, DHCP</li>
-          <li>Isolated VLAN mismatches, port-security violations, DHCP errors and DMVPN faults using SSH, ARP/MAC tables, interface counters and IP SLA</li>
-          <li>Upgraded Cisco IOS/IOS XE and rebuilt replacement devices; coordinated <span class="stat">60+</span> carrier escalations</li>
-          <li>Configured RPDU/UPS remote management and fusion-spliced optical fiber in a company-owned data center</li>
+          <li>Resolved <span class="stat">300+</span> WAN, LAN, Wi-Fi and POS incidents across <span class="stat">890+</span> retail sites at a <span class="stat">0.89-day</span> MTTR, <span class="stat">90%</span> without reassignment</li>
+          <li>Isolated VLAN, port-security, DHCP and DMVPN faults on Cisco ISR using SolarWinds Orion, IP SLA and interface counters</li>
+          <li>Drove <span class="stat">60+</span> carrier escalations and handled <span class="stat">50+</span> after-hours outages on call</li>
+          <li>Configured Cisco routers, switches and Meraki APs for new sites; provisioned MG52E cellular backup gateways and verified failover</li>
+          <li>Upgraded Cisco IOS on new ISR routers and set up PDU/RPDU and UPS network access</li>
+          <li>Trained <span class="stat">7</span> IT engineers on a replica site lab to take over Layer 1 support</li>
         </ul>
       </div>
       <div class="job with-viz">
@@ -680,7 +681,7 @@ footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 14px; 
       if (i < SCRIPT.length && wait <= 0) { const [txt, c] = SCRIPT[i]; ctx.fillStyle = c; ctx.fillText(txt.slice(0, Math.floor(typed)), 16, y); }
       if (Math.floor(performance.now() / 500) % 2) { const cx = 16 + ctx.measureText(i < SCRIPT.length && wait <= 0 ? SCRIPT[i][0].slice(0, Math.floor(typed)) : '').width;
         ctx.fillStyle = ink; ctx.fillRect(cx + 2, y - 7, 7, 13); }
-      mono(ctx, 10.5, 500); ctx.fillStyle = accent; ctx.fillText('20+ GRADUATE STUDENTS · UBUNTU · BASH', 16, H - 18);
+      mono(ctx, 10.5, 500); ctx.fillStyle = accent; ctx.fillText('25+ GRADUATE STUDENTS · UBUNTU · BASH', 16, H - 18);
     };
   });
 
